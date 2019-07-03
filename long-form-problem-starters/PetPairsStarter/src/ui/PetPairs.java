@@ -2,13 +2,13 @@ package ui;
 
 import model.Human;
 import model.PetStore;
-import model.pets.Bunny;
-import model.pets.Cat;
-import model.pets.Dog;
-import model.pets.Parrot;
-import model.pets.Pet;
+import model.pets.*;
+
+import java.util.ArrayList;
 
 public class PetPairs {
+    private ArrayList<Pet> animals;
+    private ArrayList<Human> people;
 
     public PetPairs() {
         Cat cat = new Cat("calico", false, true, 55.00);
@@ -18,6 +18,9 @@ public class PetPairs {
         Human george = new Human("George");
         Human sally = new Human("Sally");
         Human jim = new Human("Jim");
+
+        animals = new ArrayList<>();
+        people = new ArrayList<>();
 
         animals.add(cat);
         animals.add(dog);
@@ -46,6 +49,8 @@ public class PetPairs {
 
         int result = sally.numPetsOfSpecies("dog");
         System.out.println("Sally has " + result + " dog(s)");
+
+        store.displayAllPetsWithAttributes(true, false, 50.00);
     }
 
 }
