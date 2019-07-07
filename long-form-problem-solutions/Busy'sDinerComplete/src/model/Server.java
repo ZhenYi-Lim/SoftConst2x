@@ -49,5 +49,4 @@ public class Server extends FOHEmployee{
         cash += DISH_PRICE;
         System.out.println(SHORT_PREFIX + "\"Thanks for visiting Busy's Diner!\"");
     }
-
 }

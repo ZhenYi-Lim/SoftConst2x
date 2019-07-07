@@ -8,7 +8,7 @@ import java.util.*;
 import static model.Game.CARD_SIZE;
 
 //TODO: implement Observer pattern
-public class PlayerCard {
+public class PlayerCard implements model.observer_pattern.Observer {
 
     private List<NumberSquare> numbers;
     private List<Collection<Integer>> colIndices;
@@ -29,7 +29,7 @@ public class PlayerCard {
     // TODO: refactor this method
     //MODIFIES: this
     //EFFECTS: checks whether bingo call matches a square in this card, stamps if so, and updates hasBingo
-    public void checkCallMatch(Object o){
+    public void update(Object o){
         BingoNumber bc = (BingoNumber) o;
         int i = numberSquaresMatch(bc);
         for (int j=0; j < i; j++) {
@@ -191,6 +191,4 @@ public class PlayerCard {
         HashSet<Integer> indices = new HashSet<>(Arrays.asList(arr));
         coll.add(indices);
     }
-
-
 }

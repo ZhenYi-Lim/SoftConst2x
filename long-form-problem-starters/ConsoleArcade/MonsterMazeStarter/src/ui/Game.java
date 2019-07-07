@@ -1,5 +1,6 @@
 package ui;
 
+import model.Choice;
 import model.Monster;
 import model.Room;
 import model.Treasure;
@@ -38,7 +39,7 @@ public class Game {
             if (roundOver())
                 offerAnotherRound();
             if (gameOver || roundOver()) break;
-            current.printNextChoices();
+            current.printOutcome();
         }
 
         System.out.println("You have escaped...");
@@ -83,31 +84,52 @@ public class Game {
     //MODIFIES: this
     //EFFECTS: displays the next option chosen from the options displayed by current room
     private void printNextChoiceById(int id) {
-        int monsterRange = current.getMonsterRange();
-        if (id < monsterRange) {
-            Monster m = current.getMonster(id);
-            m.printOutcome();
-            roundOver = true;
-            return;
-        }
+//        int monsterRange = current.getMonsterRange();
+//        if (id < monsterRange) {
+//            Monster m = current.getMonster(id);
+//            m.printOutcome();
+//            roundOver = true;
+//            return;
+//        }
+//
+//        id -= monsterRange;
+//        int treasureRange = current.getTreasureRange();
+//
+//        if (id < treasureRange) {
+//            Treasure t = current.getTreasure(id);
+//            t.printOutcome();
+//            roundOver = true;
+//            return;
+//        }
+//
+//        id -= treasureRange;
+//        int roomRange = current.getRoomRange();
+//
+//        if (id < roomRange) {
+//            current = current.getRoom(id);
+//        } else {
+//            System.out.println(INVALID_CHOICE);
+//        }
 
-        id -= monsterRange;
-        int treasureRange = current.getTreasureRange();
+        int choiceRange = current.getChoiceRange();
 
-        if (id < treasureRange) {
-            Treasure t = current.getTreasure(id);
-            t.printOutcome();
-            roundOver = true;
-            return;
-        }
-
-        id -= treasureRange;
-        int roomRange = current.getRoomRange();
-
-        if (id < roomRange) {
-            current = current.getRoom(id);
-        } else {
-            System.out.println(INVALID_CHOICE);
+        if(id < choiceRange) {
+            Choice choice = current.getChoice(id);
+            if(choice instanceof Room) {
+                current = (Room) choice;
+            } else if(choice instanceof Monster) {
+                Monster m = (Monster) choice;
+                m.printOutcome();
+                roundOver = true;
+                return;
+            } else if(choice instanceof Treasure) {
+                Treasure t = (Treasure) choice;
+                t.printOutcome();
+                roundOver = true;
+                return;
+            } else {
+                System.out.println(INVALID_CHOICE);
+            }
         }
     }
 
@@ -138,7 +160,7 @@ public class Game {
 
         System.out.println("For each set of options, enter the number corresponding to your choice.\n");
 
-        current.printNextChoices();
+        current.printOutcome();
     }
 
     //EFFECTS: produces true if the current choice has no more options
